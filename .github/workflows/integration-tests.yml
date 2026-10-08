@@ -1,0 +1,90 @@
+name: Integration Tests
+
+on:
+  schedule:
+    # Daily run at 06:17 UTC
+    - cron: '17 6 * * *'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description: 'Specific gherkin-refine npm version to test (leave blank for default)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  integration-tests:
+    name: Run Integration Tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.18.0'
+          cache: 'npm'
+
+      # Step 1: Default installation with lockfile for push / pull_request
+      - name: Install dependencies (clean lockfile install)
+        if: ${{ github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || inputs.package_version == '') }}
+        run: npm ci
+
+      # Step 2: Install latest gherkin-refine version for scheduled daily runs
+      - name: Install latest gherkin-refine from npm (Daily Schedule)
+        if: ${{ github.event_name == 'schedule' }}
+        run: |
+          npm ci
+          npm install --no-save gherkin-refine@latest
+
+      # Step 3: Install custom version if specified in manual workflow_dispatch
+      - name: Install specified gherkin-refine version (Manual Dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.package_version != '' }}
+        run: |
+          npm ci
+          npm install --no-save gherkin-refine@${{ inputs.package_version }}
+
+      - name: Record installed gherkin-refine version
+        id: record-version
+        shell: bash
+        run: |
+          INSTALLED_VERSION=$(node -p "require('./package.json').dependencies['gherkin-refine'] || ''")
+          RESOLVED_VERSION=$(node -p "require('./node_modules/gherkin-refine/package.json').version")
+          echo "Package specifier in package.json: $INSTALLED_VERSION"
+          echo "Active resolved version in node_modules: $RESOLVED_VERSION"
+          echo "resolved_version=$RESOLVED_VERSION" >> $GITHUB_OUTPUT
+          echo "### Gherkin Refine Integration Test Run" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Runner OS**: ${{ runner.os }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node.js**: $(node -v)" >> $GITHUB_STEP_SUMMARY
+          echo "- **gherkin-refine Version**: \`v${RESOLVED_VERSION}\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Lint valid feature fixtures
+        run: npm run lint:features
+
+      - name: Run full regression test suite with structured report
+        run: npm run test:report
+
+      - name: Upload test results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-${{ steps.record-version.outputs.resolved_version || 'unknown' }}
+          path: test-results/
+          retention-days: 14
