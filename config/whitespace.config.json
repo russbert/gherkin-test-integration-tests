@@ -1,0 +1,7 @@
+{
+  "extends": ["recommended"],
+  "rules": {
+    "no-trailing-whitespace": "error",
+    "no-extra-blank-lines": "error"
+  }
+}

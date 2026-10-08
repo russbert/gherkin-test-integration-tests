@@ -1,0 +1,14 @@
+{
+  "extends": ["recommended"],
+  "rules": {
+    "scenario-size": ["error", { "maxSteps": 4 }]
+  },
+  "overrides": [
+    {
+      "files": ["features/overrides/relaxed/**/*.feature"],
+      "rules": {
+        "scenario-size": "off"
+      }
+    }
+  ]
+}

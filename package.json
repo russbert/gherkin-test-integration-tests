@@ -1,0 +1,26 @@
+{
+  "name": "gherkin-refine-integration-tests",
+  "version": "1.0.0",
+  "description": "Independent integration and regression test suite for gherkin-refine",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "test": "node --test test/specs/*.test.js",
+    "lint:features": "node ./node_modules/gherkin-refine/dist/cli.js features/valid",
+    "test:report": "node test/run-report.js"
+  },
+  "keywords": [
+    "gherkin",
+    "integration-tests",
+    "cucumber",
+    "gherkin-refine",
+    "regression-testing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gherkin-refine": "^1.0.6"
+  }
+}

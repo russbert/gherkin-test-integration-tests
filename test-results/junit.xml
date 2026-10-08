@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testsuite name="Autofix and dry-run suite" time="0.366411" disabled="0" errors="0" tests="3" failures="0" skipped="0" timestamp="2026-10-08T23:04:50.434Z" hostname="melchia">
+		<testcase name="--fix-dry-run reports fixable violations without modifying source file" time="0.087108" classname="Autofix and dry-run suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\autofix.test.js"/>
+		<testcase name="--fix corrects trailing whitespace without altering unrelated content" time="0.188184" classname="Autofix and dry-run suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\autofix.test.js"/>
+		<testcase name="--fix corrects multiple consecutive blank lines" time="0.089726" classname="Autofix and dry-run suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\autofix.test.js"/>
+	</testsuite>
+	<testsuite name="CLI exit codes and output formats suite" time="0.695997" disabled="0" errors="0" tests="7" failures="0" skipped="0" timestamp="2026-10-08T23:04:50.445Z" hostname="melchia">
+		<testcase name="exit code 0 for completely valid feature files" time="0.095598" classname="CLI exit codes and output formats suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\cli-behavior.test.js"/>
+		<testcase name="exit code 1 when linting detects rule errors" time="0.089998" classname="CLI exit codes and output formats suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\cli-behavior.test.js"/>
+		<testcase name="exit code 2 on tool or command line arguments error (unknown flag)" time="0.079530" classname="CLI exit codes and output formats suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\cli-behavior.test.js"/>
+		<testcase name="exit code 2 when specified feature target path does not exist" time="0.086420" classname="CLI exit codes and output formats suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\cli-behavior.test.js"/>
+		<testcase name="produces valid and parseable JSON conforming to schema" time="0.086010" classname="CLI exit codes and output formats suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\cli-behavior.test.js"/>
+		<testcase name="produces valid SARIF 2.1.0 output with runs and results" time="0.087916" classname="CLI exit codes and output formats suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\cli-behavior.test.js"/>
+		<testcase name="repeated runs produce deterministic and byte-identical results" time="0.168242" classname="CLI exit codes and output formats suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\cli-behavior.test.js"/>
+	</testsuite>
+	<testsuite name="Configuration and overrides suite" time="0.181308" disabled="0" errors="0" tests="2" failures="0" skipped="0" timestamp="2026-10-08T23:04:50.967Z" hostname="melchia">
+		<testcase name="applies custom rule configuration thresholds and overrides" time="0.090250" classname="Configuration and overrides suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\configuration.test.js"/>
+		<testcase name="enables additional opt-in rules via config file" time="0.090137" classname="Configuration and overrides suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\configuration.test.js"/>
+	</testsuite>
+	<testsuite name="Invalid features and rule diagnostic regression suite" time="0.543392" disabled="0" errors="0" tests="6" failures="0" skipped="0" timestamp="2026-10-08T23:04:50.605Z" hostname="melchia">
+		<testcase name="detects syntax and unparseable Gherkin errors as parsing-error (exit code 1)" time="0.093773" classname="Invalid features and rule diagnostic regression suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\invalid-features.test.js"/>
+		<testcase name="detects duplicate tags across feature, scenario, and examples levels (no-duplicate-tags)" time="0.097390" classname="Invalid features and rule diagnostic regression suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\invalid-features.test.js"/>
+		<testcase name="detects duplicate scenario names within the same feature (no-duplicate-scenario-names)" time="0.088284" classname="Invalid features and rule diagnostic regression suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\invalid-features.test.js"/>
+		<testcase name="detects undefined Scenario Outline variables (no-undefined-outline-variables)" time="0.090680" classname="Invalid features and rule diagnostic regression suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\invalid-features.test.js"/>
+		<testcase name="detects unused Scenario Outline variables (no-unused-outline-variables)" time="0.086794" classname="Invalid features and rule diagnostic regression suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\invalid-features.test.js"/>
+		<testcase name="detects duplicate feature names across multiple files in a project (no-duplicate-feature-names)" time="0.085242" classname="Invalid features and rule diagnostic regression suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\invalid-features.test.js"/>
+	</testsuite>
+	<testsuite name="Valid features suite" time="0.638186" disabled="0" errors="0" tests="7" failures="0" skipped="0" timestamp="2026-10-08T23:04:50.510Z" hostname="melchia">
+		<testcase name="lints valid core feature files with exit code 0 and zero diagnostics" time="0.097980" classname="Valid features suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\valid-features.test.js"/>
+		<testcase name="validates data tables and multiline doc strings without parsing errors" time="0.094409" classname="Valid features suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\valid-features.test.js"/>
+		<testcase name="validates Backgrounds scoped under Rules and Feature levels" time="0.093859" classname="Valid features suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\valid-features.test.js"/>
+		<testcase name="supports French localized Gherkin keywords (#language: fr)" time="0.089845" classname="Valid features suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\valid-features.test.js"/>
+		<testcase name="supports German localized Gherkin keywords (#language: de)" time="0.087305" classname="Valid features suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\valid-features.test.js"/>
+		<testcase name="honors inline rule suppression comments (disable-next-line and block disable/enable)" time="0.083199" classname="Valid features suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\valid-features.test.js"/>
+		<testcase name="lints entire features/valid tree in a single invocation with zero errors" time="0.089388" classname="Valid features suite" file="C:\projects\gherkin-refine-integration-tests\test\specs\valid-features.test.js"/>
+	</testsuite>
+	<!-- tests 30 -->
+	<!-- suites 0 -->
+	<!-- pass 30 -->
+	<!-- fail 0 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 763.1121 -->
+</testsuites>
